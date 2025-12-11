@@ -1,2 +1,11 @@
-dist
-node_modules
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
