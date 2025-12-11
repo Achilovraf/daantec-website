@@ -10,6 +10,10 @@ git init
 git add -A
 git commit -m 'deploy'
 
-git push -f git@github.com:achilovraf/daantec-website.git main:gh-pages
+# Переименуем ветку в main
+git branch -M main
+
+# Используем HTTPS вместо SSH
+git push -f https://github.com/Achilovraf/daantec-website.git main:gh-pages
 
 cd -
