@@ -11,7 +11,7 @@ export default {
   hero: {
     badge: 'Caring for life',
     title: 'Quality and care',
-    titleAccent: 'medication',
+    titleAccent: 'in every medicine',
     subtitle: 'DAANTEC is a new generation pharmaceutical company. We offer high-quality international-level medications for cardiology, neurology, and resuscitation',
     btnPartner: 'Become a Partner',
     btnCatalog: 'Product Catalog',
@@ -309,5 +309,20 @@ contact: {
   faq4Answer: 'All our products have the necessary certificates and undergo strict quality control. We work only with verified manufacturers.',
   faq5Question: 'How to track order status?',
   faq5Answer: 'You can track the order status in your personal account on our website or by contacting your personal manager.'
+},
+footer: {
+  companyDesc: 'Pharmaceutical company providing the market with quality medicines of international level.',
+  quickLinks: 'Quick Links',
+  productsTitle: 'Our Products',
+  productCardiology: 'Cardiology Portfolio',
+  productNeurology: 'Neurology Portfolio',
+  productResuscitation: 'Resuscitation Portfolio',
+  productAll: 'Full Range',
+  contactsTitle: 'Contacts',
+  address: '100005, Uzbekistan, Tashkent, Sergeli District, Khanabad 46 V',
+  schedule: 'Mon-Fri: 9:00 AM - 6:00 PM\nSat-Sun: Closed',
+  rights: 'All rights reserved.',
+  privacy: 'Privacy Policy',
+  terms: 'Terms of Use'
 }
 }

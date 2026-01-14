@@ -5,10 +5,7 @@
         <!-- Logo -->
         <router-link to="/" class="flex items-center space-x-3">
           <img src="/logo.png" alt="DAANTEC" class="h-12">
-          <div>
-            <div class="text-xl font-bold text-theme-blue">DAANTEC</div>
-            <div class="text-xs text-gray-600">Caring for life</div>
-          </div>
+          
         </router-link>
 
         <!-- Desktop Navigation -->

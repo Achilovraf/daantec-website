@@ -11,7 +11,7 @@
         <div class="flex flex-col lg:flex-row gap-8">
           <!-- Filters Sidebar -->
           <div class="lg:w-1/4">
-            <div class="bg-gradient-to-br from-theme-light to-white p-5 rounded-xl border border-theme-medium sticky top-24">
+            <div class="p-5 rounded-xl border border-theme-medium sticky top-24">
               <h3 class="text-base lg:text-lg font-bold text-heading-dark mb-5">{{ $t('products.filters') }}</h3>
               
               <!-- Category Filter -->
@@ -81,7 +81,7 @@
                 :key="product.id" 
                 class="card-hover bg-white rounded-xl overflow-hidden shadow-lg group"
               >
-                <div class="h-40 bg-gradient-to-br from-theme-light to-white flex items-center justify-center p-4">
+                <div class="h-40 bg-gradient-to-br flex items-center justify-center p-4">
                   <img :src="product.image" :alt="product.name" class="h-full object-contain">
                 </div>
                 <div class="p-5">
@@ -89,8 +89,11 @@
                   <h3 class="text-base lg:text-lg font-bold text-heading-dark mb-2">{{ product.name }}</h3>
                   <p class="text-gray-600 text-xs lg:text-sm mb-1">{{ product.dosage }}</p>
                   <p class="text-gray-500 text-xs mb-3">{{ $t(`products.manufacturers.${product.manufacturer}`) }}</p>
-                  <button class="w-full bg-theme-blue text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition text-xs lg:text-sm">
-                    <i class="fas fa-file-medical mr-2"></i>{{ $t('products.request') }}
+                  <button 
+                    @click="openInstruction(product)"
+                    class="w-full bg-theme-blue text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition text-xs lg:text-sm"
+                  >
+                    <i class="fas fa-file-pdf mr-2"></i>{{ $t('products.request') }}
                   </button>
                 </div>
               </div>
@@ -99,6 +102,52 @@
         </div>
       </div>
     </section>
+
+    <!-- Modal for Request Instruction -->
+    <div 
+      v-if="showRequestModal" 
+      class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      @click.self="showRequestModal = false"
+    >
+      <div class="bg-white rounded-2xl max-w-md w-full p-8 relative">
+        <button 
+          @click="showRequestModal = false"
+          class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+        >
+          <i class="fas fa-times text-xl"></i>
+        </button>
+
+        <div class="text-center mb-6">
+          <div class="w-16 h-16 bg-theme-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-file-pdf text-theme-blue text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-heading-dark mb-2">Инструкция недоступна</h3>
+          <p class="text-gray-600 text-sm">{{ selectedProduct?.name }}</p>
+        </div>
+
+        <p class="text-gray-600 text-sm mb-6 text-center">
+          Для получения подробной информации, пожалуйста, свяжитесь с нами
+        </p>
+
+        <div class="space-y-3">
+          <a 
+            href="tel:+998951234567" 
+            class="flex items-center justify-center gap-3 w-full bg-theme-blue text-white px-6 py-3 rounded-lg hover:bg-opacity-90 transition"
+          >
+            <i class="fas fa-phone"></i>
+            <span class="text-sm font-semibold">Позвонить</span>
+          </a>
+          <router-link 
+            to="/contact"
+            @click="showRequestModal = false"
+            class="flex items-center justify-center gap-3 w-full border-2 border-theme-blue text-theme-blue px-6 py-3 rounded-lg hover:bg-theme-blue hover:text-white transition"
+          >
+            <i class="fas fa-envelope"></i>
+            <span class="text-sm font-semibold">Написать нам</span>
+          </router-link>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -109,31 +158,137 @@ export default {
     return {
       selectedCategories: [],
       selectedManufacturers: [],
+      showRequestModal: false,
+      selectedProduct: null,
       categories: ['cardiology', 'neurology', 'resuscitation', 'antibiotics', 'metabolism'],
       manufacturers: ['china', 'georgia', 'uzbekistan'],
       products: [
         // Кардиология
-        { id: 1, name: 'ЭФЕС 5', category: 'cardiology', manufacturer: 'china', dosage: 'Фруктоза дифосфат натрия', image: 'public/products/Эфес-5.png' },
-        { id: 2, name: 'ЛАЙФОН', category: 'cardiology', manufacturer: 'uzbekistan', dosage: 'Креатин фосфат натрия 1.0 г №1', image: 'public/products/Лайфон.png' },
+        { 
+          id: 1, 
+          name: 'ЭФЕС 5', 
+          category: 'cardiology', 
+          manufacturer: 'china', 
+          dosage: 'Фруктоза дифосфат натрия', 
+          image: '/products/Эфес-5.png',
+          instruction: '/instructions/efes-5.pdf' // Путь к PDF
+        },
+        { 
+          id: 2, 
+          name: 'ЛАЙФОН', 
+          category: 'cardiology', 
+          manufacturer: 'uzbekistan', 
+          dosage: 'Креатин фосфат натрия 1.0 г №1', 
+          image: '/products/Лайфон.png',
+          instruction: '/instructions/laifon.pdf'
+        },
         
         // Неврология
-        { id: 3, name: 'ЛЕТОКАР', category: 'neurology', manufacturer: 'georgia', dosage: '4.2 г L-аргинина гидрохлорида, 100 мл', image: 'public/products/letokar.png' },
-        { id: 4, name: 'ВЕГАС', category: 'neurology', manufacturer: 'china', dosage: 'Гемодериват крови телят 40.0 мг', image: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=300' },
+        { 
+          id: 3, 
+          name: 'ЛЕТОКАР', 
+          category: 'neurology', 
+          manufacturer: 'georgia', 
+          dosage: '4.2 г L-аргинина гидрохлорида, 100 мл', 
+          image: '/products/letokar.png',
+          instruction: null // Нет инструкции
+        },
+        { 
+          id: 4, 
+          name: 'ВЕГАС', 
+          category: 'neurology', 
+          manufacturer: 'china', 
+          dosage: 'Гемодериват крови телят 40.0 мг', 
+          image: '/products/vegas.jpg',
+          instruction: '/instructions/vegas.pdf'
+        },
         
         // Реанимация
-        { id: 5, name: 'СТОЛАКСОЛ', category: 'resuscitation', manufacturer: 'uzbekistan', dosage: 'Электролиты, 100 мл / 200 мл', image: 'https://images.unsplash.com/photo-1585435557343-3b092031d831?w=300' },
-        { id: 6, name: 'МЕГАСОЛ', category: 'resuscitation', manufacturer: 'georgia', dosage: 'Глюкоза 50 мг/мл, 100 мл / 250 мл', image: 'https://images.unsplash.com/photo-1563213126-a4273aed2016?w=300' },
-        { id: 7, name: 'АМИНОМАГТ', category: 'resuscitation', manufacturer: 'china', dosage: '8% раствор L-аминокислот, 250 мл', image: 'https://images.unsplash.com/photo-1550572017-4170f7a3a7de?w=300' },
-        { id: 8, name: 'ИНФУЗИОЛ-НED', category: 'resuscitation', manufacturer: 'uzbekistan', dosage: '5% раствор L-аминокислот, 100/250 мл', image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=300' },
+        { 
+          id: 5, 
+          name: 'СТОЛАКСОЛ', 
+          category: 'resuscitation', 
+          manufacturer: 'uzbekistan', 
+          dosage: 'Электролиты, 100 мл / 200 мл', 
+          image: '/products/столаскол.jpg',
+          instruction: null
+        },
+        { 
+          id: 6, 
+          name: 'МЕГАСОЛ', 
+          category: 'resuscitation', 
+          manufacturer: 'georgia', 
+          dosage: 'Глюкоза 50 мг/мл, 100 мл / 250 мл', 
+          image: '/products/megasol.jpg',
+          instruction: '/instructions/megasol.pdf'
+        },
+        { 
+          id: 7, 
+          name: 'АМИНОМАГТ', 
+          category: 'resuscitation', 
+          manufacturer: 'china', 
+          dosage: '8% раствор L-аминокислот, 250 мл', 
+          image: '/products/aminomagt.jpg',
+          instruction: null
+        },
+        { 
+          id: 8, 
+          name: 'ИНФУЗИОЛ-НED', 
+          category: 'resuscitation', 
+          manufacturer: 'uzbekistan', 
+          dosage: '5% раствор L-аминокислот, 100/250 мл', 
+          image: '/products/infuziol.jpg',
+          instruction: '/instructions/infuziol.pdf'
+        },
         
         // Антибиотики
-        { id: 9, name: 'МАКРОЦЕФ', category: 'antibiotics', manufacturer: 'china', dosage: 'Цефоперазон 1.0 г + сульбактам 1.0 г', image: 'https://images.unsplash.com/photo-1587854680352-b37d68a508e9?w=300' },
-        { id: 10, name: 'АВРОЛА', category: 'antibiotics', manufacturer: 'uzbekistan', dosage: 'Левофлоксацин 500 мг, 100 мл', image: 'https://images.unsplash.com/photo-1603899122634-f086ca5f5ddd?w=300' },
+        { 
+          id: 9, 
+          name: 'МАКРОЦЕФ', 
+          category: 'antibiotics', 
+          manufacturer: 'china', 
+          dosage: 'Цефоперазон 1.0 г + сульбактам 1.0 г', 
+          image: '/products/makrotsef.png',
+          instruction: null
+        },
+        { 
+          id: 10, 
+          name: 'АВРОЛА', 
+          category: 'antibiotics', 
+          manufacturer: 'uzbekistan', 
+          dosage: 'Левофлоксацин 500 мг, 100 мл', 
+          image: '/products/avrola.jpg',
+          instruction: '/instructions/avrola.pdf'
+        },
         
         // Метаболизм
-        { id: 11, name: 'ДЕКАРИН', category: 'metabolism', manufacturer: 'georgia', dosage: 'Аргинозал + Кокарбоксилаза', image: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=300' },
-        { id: 12, name: 'ПЕПТАЗОЛ', category: 'metabolism', manufacturer: 'china', dosage: 'Пантопразол 45 мг', image: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=300' },
-        { id: 13, name: 'АОРТА', category: 'metabolism', manufacturer: 'uzbekistan', dosage: 'Железа (III) гидроксид 100 мг', image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=300' }
+        { 
+          id: 11, 
+          name: 'ДЕКАРИН', 
+          category: 'metabolism', 
+          manufacturer: 'georgia', 
+          dosage: 'Аргинозал + Кокарбоксилаза', 
+          image: '/products/dikarin.jpg',
+          instruction: null
+        },
+        { 
+          id: 12, 
+          name: 'ПЕПТАЗОЛ', 
+          category: 'metabolism', 
+          manufacturer: 'china', 
+          dosage: 'Пантопразол 45 мг', 
+          image: '/products/peptazole.jpg',
+          instruction: '/instructions/peptazol.pdf'
+        },
+        { 
+          id: 13, 
+          name: 'АОРТА', 
+          category: 'metabolism', 
+          manufacturer: 'uzbekistan', 
+          dosage: 'Железа (III) гидроксид 100 мг', 
+          image: '/products/aourta-hb.jpg',
+          instruction: null
+        }
       ]
     }
   },
@@ -150,6 +305,17 @@ export default {
     }
   },
   methods: {
+    openInstruction(product) {
+      if (product.instruction) {
+        // Открываем PDF в новой вкладке
+        window.open(product.instruction, '_blank')
+      } else {
+        // Показываем модальное окно для запроса инструкции
+        this.selectedProduct = product
+        this.showRequestModal = true
+      }
+    },
+    
     resetFilters() {
       this.selectedCategories = []
       this.selectedManufacturers = []
@@ -157,3 +323,34 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+/* Анимация для модального окна */
+.fixed {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.bg-white.rounded-2xl {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+</style>

@@ -11,7 +11,7 @@ export default {
   hero: {
     badge: 'Hayotga g\'amxo\'rlik',
     title: 'Sifat va g\'amxo\'rlik',
-    titleAccent: 'preparatda',
+    titleAccent: 'har-bir preparatda',
     subtitle: 'DAANTEC — yangi avlod farmatsevtika kompaniyasi. Biz kardiologiya, nevrologiya va reanimatsiya uchun xalqaro darajadagi sifatli preparatlarni taklif qilamiz',
     btnPartner: 'Hamkor bo\'lish',
     btnCatalog: 'Mahsulotlar katalogi',
@@ -89,7 +89,7 @@ export default {
     badge: 'Kompaniya haqida',
     title: 'Farmatsevtikada yangi nom',
     subtitle: 'Ishonish mumkin bo\'lgan!',
-    historyTitle: 'Bizning tarixim',
+    historyTitle: 'Bizning tariximiz',
     historyText1: 'DAANTEC farmatsevtika kompaniyasi 2023-yil 7-dekabrda rasman ro\'yxatdan o\'tgan va 2024-yilda faol faoliyatni boshlagan. Yosh yoshimizga qaramay, biz allaqachon mustahkam hamkorlik munosabatlarini o\'rnatyapmiz va professional yondashuv va yuqori ekspertlik bilan bozorga chiqyapmiz.',
     historyText2: 'Kompaniya asoschilari — Mehroj Iskandarovich va Laziz Shirinbaevich — bozorda sifatli va hamyonbop farmatsevtika yechimlarini joriy etish uchun ko\'p yillik tajriba va strategik fikrlashni birlashtirgan mutaxassislar.',
     historyText3: 'Bizning vazifamiz — tibbiy hamjamiyat va bemorlarga yuqori sifatli va zamonaviy farmatsevtika mahsulotlariga kirish imkoniyatini berish, shu bilan mamlakat va mintaqada sog\'liqni saqlashni rivojlantirishga hissa qo\'shish.',
@@ -309,5 +309,20 @@ contact: {
   faq4Answer: 'Barcha mahsulotlarimiz zarur sertifikatlarga ega va qattiq sifat nazoratidan o\'tadi. Biz faqat tekshirilgan ishlab chiqaruvchilar bilan ishlaymiz.',
   faq5Question: 'Buyurtma holatini qanday kuzatish mumkin?',
   faq5Answer: 'Buyurtma holatini saytdagi shaxsiy kabinetingizda yoki shaxsiy menejeringiz bilan bog\'lanib kuzatishingiz mumkin.'
+},
+footer: {
+  companyDesc: 'Bozorni xalqaro darajadagi sifatli dorilar bilan ta\'minlaydigan farmatsevtika kompaniyasi.',
+  quickLinks: 'Tezkor havolalar',
+  productsTitle: 'Bizning mahsulotlar',
+  productCardiology: 'Kardiologiya portfeli',
+  productNeurology: 'Nevrologiya portfeli',
+  productResuscitation: 'Reanimatsiya portfeli',
+  productAll: 'Barcha assortiment',
+  contactsTitle: 'Aloqa',
+  address: '100005, O\'zbekiston, Toshkent sh., Sergeli tumani, Xonobod 46 V',
+  schedule: 'Dush-Jum: 9:00 - 18:00\nShan-Yak: Dam olish',
+  rights: 'Barcha huquqlar himoyalangan.',
+  privacy: 'Maxfiylik siyosati',
+  terms: 'Foydalanish shartlari'
 }
 }
